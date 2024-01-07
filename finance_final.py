@@ -40,7 +40,7 @@ import matplotlib.pyplot as plt
 
 #繪製穀物趨勢圖
 # 創建一個圖和一個 Axes 對象
-fig, ax = plt.subplots(figsize=(10,8))
+fig, ax = plt.subplots(figsize=(10,7))
 
 #set the background color
 fig.patch.set_facecolor('white')
@@ -65,10 +65,18 @@ fig.savefig('穀物折線圖.jpg',format = 'jpeg',dpi=300, facecolor='white')
 
 
 #繪製 CPI 圖型!
-df_merged2 = pd.concat([frame_CPI],axis=1)
-fig, ax = plt.subplots()
 
-# 繪製三條線
+df_merged2 = pd.concat([frame_CPI],axis=1)
+
+#畫布
+fig, ax = plt.subplots(figsize=(11,8))
+
+#set the background color
+fig.patch.set_facecolor('white')
+ax.set_facecolor('white')
+
+
+# 繪製CPI 
 ax.plot(df_merged2.index, df_merged2['USACPALTT01CTGYM'], color='peru', label='CPI')
 
 ax.legend()
@@ -78,6 +86,34 @@ ax.set_xlabel('year')
 ax.set_ylabel('Contribution to annual inflation')
 
 plt.show()
+fig.savefig('USA_CPI.jpg',format = 'jpeg',dpi=300, facecolor='white')
 
+#合併兩張圖表 (穀物 & CPI)
+fig, ax1 = plt.subplots(figsize=(11,8))
+fig.patch.set_facecolor('white')
+ax1.set_facecolor('white')
 
+#穀物之三條線
+line1 = ax1.plot(df_merged.index, df_merged['PWHEAMTUSDM'], color='slategray', label='Wheat')
+line2 = ax1.plot(df_merged.index, df_merged['PMAIZMTUSDM'], color='steelblue', label='Corn')
+line3 = ax1.plot(df_merged.index, df_merged['PSOYBUSDM'], color='cadetblue', label='Soybeans')
+ 
+#將位置放在左上角
+ax1.legend(loc='upper left')
+ax1.set_title('Data of wheat, corn, soybeans and CPI')
+ax1.set_xlabel('Year')
+ax1.set_ylabel('Price (in USD)')
 
+#第二個 Y 軸
+ax2 = ax1.twinx()
+
+#繪製 CPI 
+line4 = ax2.plot(df_merged2.index, df_merged2['USACPALTT01CTGYM'], color='peru', label='CPI')
+
+#將位置放在 右上角
+ax2.legend(loc = 'upper right')
+
+ax2.set_ylabel('Contribution to annual inflation - CPI')
+
+plt.show()
+fig.savefig('合併.jpg', format='jpeg', dpi=300, facecolor='white')
