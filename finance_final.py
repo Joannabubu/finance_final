@@ -1,13 +1,6 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[43]:
-
 
 get_ipython().system('pip install fredapi')
 
-
-# In[45]:
 
 
 #Global price of wheat, corn, soybeans
@@ -18,15 +11,12 @@ data_corn = fred.get_series('PMAIZMTUSDM','1/1/2010')
 data_soybeans = fred.get_series('PSOYBUSDM','1/1/2010')
 
 
-# In[46]:
-
 
 data_wheat
 data_corn
 data_soybeans
 
 
-# In[47]:
 
 
 data_wheat.plot()
@@ -34,38 +24,31 @@ data_corn.plot()
 data_soybeans.plot()
 
 
-# In[48]:
-
-
+#讀取資料
 frame_wheat = data_wheat.to_frame(name = 'PWHEAMTUSDM')
 frame_corn = data_corn.to_frame(name = 'PMAIZMTUSDM')
 frame_soybeans = data_soybeans.to_frame(name = 'PSOYBUSDM')
 frame_wheat,frame_corn,frame_soybeans
 
 
-# In[49]:
 
 
 import pandas as pd
 df_merged = pd.concat([frame_wheat, frame_corn, frame_soybeans],axis=1)
 
 
-# In[50]:
-
 
 import matplotlib
 import matplotlib.pyplot as plt
 
 
-# In[51]:
 
 
+#繪製基本圖形
 plt.plot(df_merged.index, df_merged['PWHEAMTUSDM'])
 plt.plot(df_merged.index, df_merged['PMAIZMTUSDM'])
 plt.plot(df_merged.index, df_merged['PSOYBUSDM'])
 
-
-# In[31]:
 
 
 fig,ax_wheat = plt.subplots()
@@ -75,8 +58,6 @@ ax_wheat.plot(df_merged.index,df_merged['PWHEAMTUSDM'],color = 'tan')
 ax_corn.plot(df_merged.index,df_merged['PMAIZMTUSDM'],color = 'lightseagreen')
 ax_soybeans.plot(df_merged.index,df_merged['PSOYBUSDM'],color = 'slategray')
 
-
-# In[32]:
 
 
 import matplotlib.pyplot as plt
@@ -104,9 +85,6 @@ ax_soybeans.legend()
 plt.show()
 
 
-# In[34]:
-
-
 import matplotlib.pyplot as plt
 
 # 創建一張包含三條相關趨勢圖的線的圖表
@@ -131,8 +109,6 @@ ax_soybeans.legend()
 # 顯示圖表
 plt.show()
 
-
-# In[39]:
 
 
 import matplotlib.pyplot as plt
@@ -163,8 +139,6 @@ plt.tight_layout()
 plt.show()
 
 
-# In[42]:
-
 
 import matplotlib.pyplot as plt
 
@@ -188,8 +162,6 @@ ax.set_ylabel('Price (in USD)')
 plt.show()
 fig.savefig('穀物折線圖.jpg',format = 'jpeg')
 
-
-# In[ ]:
 
 
 
