@@ -117,3 +117,33 @@ ax2.set_ylabel('Contribution to annual inflation - CPI')
 
 plt.show()
 fig.savefig('合併.jpg', format='jpeg', dpi=300, facecolor='white')
+
+
+#計算相關係數
+df_merged_all = pd.concat([df_merged, df_merged2], axis=1)
+
+correlation_matrix = df_merged_all.corr()
+fig, ax = plt.subplots(figsize=(10,8))
+fig.patch.set_facecolor('white')
+ax.set_facecolor('white')
+
+cax = ax.matshow(correlation_matrix, cmap='coolwarm')
+fig.colorbar(cax)
+
+column_name = ['wheat', 'corn','soybeans','CPI']
+correlation_matrix.columns = column_name
+correlation_matrix.index = column_name
+
+ax.set_title('Correlation Matrix: CPI, Corn, Wheat, Soybeans')
+ax.set_xticks(range(len(correlation_matrix.columns)))
+ax.set_yticks(range(len(correlation_matrix.columns)))
+ax.set_xticklabels(correlation_matrix.columns)
+ax.set_yticklabels(correlation_matrix.columns)
+
+for i in range(len(correlation_matrix.columns)):
+    for j in range(len(correlation_matrix.columns)):
+        text = ax.text(j, i, f'{correlation_matrix.iloc[i, j]:.2f}', ha='center', va='center', color='black')
+
+plt.show()
+fig.savefig('相關係數圖.jpg', format='jpeg', dpi=300, facecolor='white')
+
